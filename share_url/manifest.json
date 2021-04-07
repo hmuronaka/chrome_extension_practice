@@ -1,0 +1,21 @@
+{
+  "name": "Share URL",
+  "version": "0.1",
+  "description": "practice",
+  "manifest_version": 2,
+  "permissions": ["tabs", "activeTab"],
+  "content_scripts": [{
+    "matches": ["*://*.chatwork.com/*"],
+    "js": [
+      "lib/dom_util.js", 
+      "lib/chatwork_dom.js", 
+      "content_scripts/commands.js", 
+      "content_scripts/message_receiver.js",
+      "content_scripts/main.js"
+    ],
+    "run_at": "document_end"
+  }],
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  }
+}

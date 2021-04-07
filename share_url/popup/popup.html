@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        height: 200px;
+      }
+      button {
+        height: 30px;
+        width: 30px;
+        outline: none;
+      }
+      .title {
+        width: 300px;
+      }
+      .uri {
+        width: 300px;
+      }
+      #room-url {
+        width: 300px;
+      }
+      #room-number {
+        width: 300px;
+      }
+      #get-rooms-button {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <select id="rooms-select" ></select>
+    <button id="share-button">SHARE</button>
+    <button id="get-rooms-button">GET ROOMS</button>
+    <div id="tab-title" class="title" ></div>
+    <div id="tab-uri" class="uri" ></div>
+
+    <script src="../lib/dom_util.js"></script>
+    <script src="../lib/chrome_util.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
