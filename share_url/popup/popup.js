@@ -57,17 +57,13 @@ class Popup {
       type: 'share-web-page',
       url: this.#uriDiv.innerText,
       title: this.#titleDiv.innerText,
+      roomUrl: roomUrl
     };
 
     let tab = await this.#findChatworkTab();
     if( tab ) {
-      chrome.tabs.update(tab.id, { url: roomUrl });
-    } else {
-      tab = await ChromeExtension.shared.createNewTab(roomUrl);
-    }
-    setTimeout(() => {
       ChromeExtension.shared.sendMessageToTab(tab, payload);
-    }, 2000);
+    }
   }
 
   async getRoomsName() {

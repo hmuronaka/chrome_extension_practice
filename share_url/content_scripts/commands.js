@@ -29,15 +29,30 @@ class GetRoomNamesCommand {
 }
 
 /**
+ * 指定されたroomUrlのルームを選択する
+ */ 
+class RoomSelectCommand {
+  run(msg) {
+    let roomList = new RoomList(document.getElementById('_roomListArea'));
+    let room = roomList.getRoomByUrl(msg.roomUrl);
+    room.select();
+  }
+}
+
+/**
  * 表示されているルームにメッセージを投稿する
  */ 
 class ChatSendCommand {
+  #roomSelectCommand = new RoomSelectCommand();
   run(msg) {
-    let chatSendArea = new ChatSendArea(document.getElementById('_chatSendArea'));
-    var text = chatSendArea.text;
-    text += msg.title + '\n' + msg.url;
-    chatSendArea.text = text;
-    chatSendArea.send();
+    this.#roomSelectCommand.run(msg);
+    setTimeout(() => {
+      let chatSendArea = new ChatSendArea(document.getElementById('_chatSendArea'));
+      var text = chatSendArea.text;
+      text += msg.title + '\n' + msg.url;
+      chatSendArea.text = text;
+      chatSendArea.send();
+    }, 1000);
   }
 }
 
