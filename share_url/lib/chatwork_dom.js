@@ -28,6 +28,10 @@ class Room {
     };
   }
 
+  select() {
+    this.el.click();
+  }
+
 }
 
 /**
