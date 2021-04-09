@@ -19,6 +19,11 @@ class GetRoomNameCommand {
  * ルーム一覧情報を取得する
  */ 
 class GetRoomNamesCommand {
+  /**
+   * msg: {
+   *  type: 'get-rooms-name'
+   * }
+   */ 
   run(msg) {
     let roomList = new RoomList(document.getElementById('_roomListArea'));
     let rooms = roomList.rooms().map ( r => r.asObject );
@@ -32,6 +37,12 @@ class GetRoomNamesCommand {
  * 指定されたroomUrlのルームを選択する
  */ 
 class SelectRoomCommand {
+  /**
+   * msg: {
+   *  type: 'select-room',
+   *  roomUrl: 'https://chatwork.com/#!rid000000' などroomを特定するURL
+   * } 
+   */
   run(msg) {
     let roomList = new RoomList(document.getElementById('_roomListArea'));
     let room = roomList.getRoomByUrl(msg.roomUrl);
@@ -43,6 +54,13 @@ class SelectRoomCommand {
  * 表示されているルームにメッセージを投稿する
  */ 
 class ChatSendCommand {
+  /**
+   *  msg: {
+   *    type: 'share-web-page',
+   *    url: メッセージに貼り付けるurl
+   *    title: メッセージに貼り付けるtitle
+   *  };
+   */
   run(msg) {
     let chatSendArea = new ChatSendArea(document.getElementById('_chatSendArea'));
     var text = chatSendArea.text;
