@@ -1,10 +1,9 @@
 /**
- * urlとtitleを指定したルームに共有する.
+ * textをroomに投稿する
  *
- * chatworkのページのルームを変更して、メッセージ欄に
- * url+titleを貼り付ける
+ * chatworkのページのルームを変更して、メッセージ欄にtextを貼り付ける
  */ 
-class ShareWebPageCommand {
+class SendTextCommand {
   /**
    * msg: {
       type: 'send-text-to-room',
