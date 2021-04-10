@@ -47,7 +47,7 @@ class Popup {
     let message = {
       type: 'send-text-to-room',
       roomUrl: this.selectedRoom.value,
-      text: this.#text.value
+      text: this.#text.value.trim()
     };
     this.#sendMessageToChatwork(message);
   }
@@ -79,7 +79,9 @@ class Popup {
   }
 
   #textFromTab(tab) {
-    return `${tab.title}\n${tab.url}`;
+    // 末尾の\n\nは、title/urlに続けてメッセージを入力しやすいように挿入。
+    // \n\nが不要な場合を想定して、送信時にtrimで空白を除去している。
+    return `${tab.title}\n${tab.url}\n\n`;
   }
 
   #setText(text) {
