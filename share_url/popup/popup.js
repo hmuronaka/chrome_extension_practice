@@ -28,7 +28,7 @@ class Popup {
     // 表示中のページの情報を取得する
     this.#getRoomsButton.addEventListener('click', () => this.getRoomsName() );
     this.#setTextFromActiveTab();
-    doc.getElementById('share-button').addEventListener('click', () => this.sendTextToRoom());
+    doc.getElementById('send-text-button').addEventListener('click', () => this.sendTextToRoom());
     this.getRoomsName();
   }
 
