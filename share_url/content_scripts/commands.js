@@ -53,7 +53,7 @@ class SelectRoomCommand {
 /**
  * 表示されているルームにメッセージを投稿する
  */ 
-class ChatSendCommand {
+class SendTextCommand {
   /**
    *  msg: {
    *    type: 'send-text-to-room',
