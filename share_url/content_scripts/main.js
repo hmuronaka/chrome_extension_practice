@@ -3,7 +3,7 @@
     {
       'send-text-to-room': SendTextCommand,
       'get-room-name': GetRoomNameCommand,
-      'get-rooms-name': GetRoomNamesCommand,
+      'get-room-names': GetRoomNamesCommand,
       'select-room': SelectRoomCommand
     }
   );
