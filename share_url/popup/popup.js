@@ -6,8 +6,8 @@ class Popup {
   ////////////////////////////////////////////////////////////////////////////////
   // attributes
 
-  /** 表示中のtext */
-  #text;
+  /** 送信本文 */
+  #textarea;
   /** ルーム一覧更新ボタン */
   #getRoomsButton;
   /** ルーム一覧 */
@@ -21,7 +21,7 @@ class Popup {
 
   /** このオブジェクトをdocumentに割り当てる */
   attach(doc) {
-    this.#text = doc.getElementById('text');
+    this.#textarea = doc.getElementById('text');
     this.#getRoomsButton = doc.getElementById('get-rooms-button');
     this.#roomsSelect = doc.getElementById('rooms-select');
 
@@ -47,7 +47,7 @@ class Popup {
     let message = {
       type: 'send-text-to-room',
       roomUrl: this.selectedRoom.value,
-      text: this.#text.value.trim()
+      text: this.#textarea.value.trim()
     };
     this.#sendMessageToChatwork(message);
   }
@@ -85,7 +85,7 @@ class Popup {
   }
 
   #setText(text) {
-    this.#text.value = text;
+    this.#textarea.value = text;
   }
 }
 
