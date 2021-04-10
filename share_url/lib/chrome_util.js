@@ -37,16 +37,16 @@ class ChromeExtension {
   }
 
   /**
-   * tabにpayloadを送信する
+   * tabにmessageを送信する
    */ 
-  async sendMessageToTab(tab, payload) {
+  async sendMessageToTab(tab, message) {
     return new Promise((resolve, reject) => {
       if( !tab ) {
         reject('tab is nil');
         return;
       }
-      let payloadWithTab = {tabId: tab.id, ...payload};
-      chrome.tabs.sendMessage(tab.id, payloadWithTab, (res) => {
+      let messageWithTab = {tabId: tab.id, ...message};
+      chrome.tabs.sendMessage(tab.id, messageWithTab, (res) => {
         resolve(res);
       });
     });
@@ -56,17 +56,17 @@ class ChromeExtension {
     return await this.findTab('https://www.chatwork.com/');
   }
 
-  async sendMessageToChatworkTab(payload) {
+  async sendMessageToChatworkTab(message) {
     let tab = await this.findChatworkTab();
     if( !tab ) {
       throw "chatwork's tab was not found.";
     }
-    return await this.sendMessageToTab(tab, payload);
+    return await this.sendMessageToTab(tab, message);
   }
 
-  async sendMessage(payload) {
+  async sendMessage(message) {
     return new Promise((resolve, reject) => {
-      chrome.runtime.sendMessage(payload, (res) => {
+      chrome.runtime.sendMessage(message, (res) => {
         resolve(res);
       });
     });
