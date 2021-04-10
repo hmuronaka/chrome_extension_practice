@@ -39,7 +39,7 @@ class Popup {
     return this.#roomsSelect.options[this.#roomsSelect.selectedIndex];
   }
 
-  /** 表示中のURLとタイトルをRoomに投稿する */
+  /** テキストを選択されているRoomに投稿する */
   async sendTextToRoom() {
     if( !this.selectedRoom ) {
       return;

@@ -1,7 +1,6 @@
 /**
- * textをroomに投稿する
- *
- * chatworkのページのルームを変更して、メッセージ欄にtextを貼り付ける
+ * 指定したchatworkのroomを表示して、
+ * テキスト欄に送信本文を貼り付ける。
  */ 
 class SendTextCommand {
   /**
