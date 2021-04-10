@@ -1,16 +1,13 @@
 /**
- * urlとtitleを指定したルームに共有する.
- *
- * chatworkのページのルームを変更して、メッセージ欄に
- * url+titleを貼り付ける
+ * 指定したchatworkのroomを表示して、
+ * テキスト欄に送信本文を貼り付ける。
  */ 
-class ShareWebPageCommand {
+class SendTextCommand {
   /**
    * msg: {
-      type: 'share-web-page',
-      url: メッセージ中のurl
-      title: メッセージ中のtitle
-      roomUrl: 投稿先ルームのurl
+      type: 'send-text-to-room',
+      roomUrl: 投稿先ルームのurl,
+      text: 送信する本文
     }
    */ 
   async run(msg) {
@@ -20,7 +17,7 @@ class ShareWebPageCommand {
     });
     // TODO sleepは削除する。
     await sleepMilliseconds(1000);
-    // chatworkにmsg share-web-pageをそのまま送信する。
+    // chatworkにmsg send-text-to-roomをそのまま送信する。
     await ChromeExtension.shared.sendMessageToChatworkTab(msg);
   }
 }

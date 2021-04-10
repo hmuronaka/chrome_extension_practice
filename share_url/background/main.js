@@ -1,7 +1,7 @@
 (() => {
   let receiver = new MessageReceiver(
     {
-      'share-web-page': ShareWebPageCommand,
+      'send-text-to-room': SendTextCommand,
       '*': BypassCommand
     }
   );
