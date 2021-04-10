@@ -16,6 +16,14 @@ class DomUtil {
     }
   }
 
+  /** selectの選択中のoptionを返す */
+  static getSelectedOption( selectEl ) {
+    if( selectEl.selectedIndex < 0 ) {
+      return null;
+    }
+    return selectEl.options[selectEl.selectedIndex];
+  }
+
   /** selectのoptionを入れ直す */
   static reloadSelct(selectEl, options) {
     DomUtil.removeAllOptionsFromSelect(selectEl);

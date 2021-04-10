@@ -33,10 +33,7 @@ class Popup {
   }
 
   get selectedRoom() {
-    if( this.#roomsSelect.selectedIndex < 0 ) {
-      return null;
-    }
-    return this.#roomsSelect.options[this.#roomsSelect.selectedIndex];
+    return DomUtil.getSelectedOption( this.#roomsSelect );
   }
 
   /** テキストを選択されているRoomに投稿する */
