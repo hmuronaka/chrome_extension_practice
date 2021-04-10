@@ -32,18 +32,14 @@ class Popup {
     this.getRoomNames();
   }
 
-  get selectedRoom() {
-    return DomUtil.getSelectedOption( this.#roomsSelect );
-  }
-
   /** テキストを選択されているRoomに投稿する */
   async sendTextToRoom() {
-    if( !this.selectedRoom ) {
+    if( !this.#selectedRoom ) {
       return;
     }
     let message = {
       type: 'send-text-to-room',
-      roomUrl: this.selectedRoom.value,
+      roomUrl: this.#selectedRoom.value,
       text: this.#textarea.value.trim()
     };
     this.#sendMessageToChatwork(message);
@@ -57,6 +53,10 @@ class Popup {
 
   ////////////////////////////////////////////////////////////////////////////////
   // private methods
+
+  get #selectedRoom() {
+    return DomUtil.getSelectedOption( this.#roomsSelect );
+  }
 
   async #sendMessageToChatwork(message) {
     return await ChromeExtension.shared.sendMessage(message);
