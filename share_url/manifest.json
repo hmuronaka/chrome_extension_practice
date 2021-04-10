@@ -3,7 +3,7 @@
   "version": "0.1",
   "description": "practice",
   "manifest_version": 2,
-  "permissions": ["tabs", "activeTab"],
+  "permissions": ["tabs", "activeTab", "storage"],
   "content_scripts": [{
     "matches": ["*://*.chatwork.com/*"],
     "js": [

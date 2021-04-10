@@ -20,16 +20,21 @@ class Popup {
   // public methods
 
   /** このオブジェクトをdocumentに割り当てる */
-  attach(doc) {
+  async attach(doc) {
     this.#textarea = doc.getElementById('text');
     this.#getRoomsButton = doc.getElementById('get-rooms-button');
     this.#roomsSelect = doc.getElementById('rooms-select');
 
-    // 表示中のページの情報を取得する
+    // 各種設定を行う
     this.#getRoomsButton.addEventListener('click', () => this.getRoomNames() );
-    this.#setTextFromActiveTab();
+    this.#roomsSelect.addEventListener('change', (event) => this.#changedRoom(event) );
     doc.getElementById('send-text-button').addEventListener('click', () => this.sendTextToRoom());
-    this.getRoomNames();
+
+    // 表示中のページの情報を取得する
+    this.#setTextFromActiveTab();
+
+    await this.getRoomNames();
+    this.#restoreSelectedRoom();
   }
 
   /** テキストを選択されているRoomに投稿する */
@@ -51,6 +56,14 @@ class Popup {
     this.#refreshRoomSelect( res.rooms );
   }
 
+  ////////////////////////////////////////////////////////////////////////////////
+  // event handler
+
+  /** ルーム一覧のselectが変更された */
+  #changedRoom(event) {
+    this.#saveSelectedRoom();
+  }
+ 
   ////////////////////////////////////////////////////////////////////////////////
   // private methods
 
@@ -83,6 +96,23 @@ class Popup {
 
   #setText(text) {
     this.#textarea.value = text;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // for storage
+
+  #saveSelectedRoom() {
+    chrome.storage.local.set({selected_room: this.#selectedRoom.value});
+  }
+
+  #restoreSelectedRoom() {
+    chrome.storage.local.get(['selected_room'], (result) => {
+      if( chrome.runtime.lastError ) {
+        console.log(chrome.runtime.lastError);
+        return;
+      }
+      DomUtil.selectOptionByValue( this.#roomsSelect, result['selected_room'] );
+    });
   }
 }
 

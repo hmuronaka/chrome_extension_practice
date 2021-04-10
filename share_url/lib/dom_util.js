@@ -18,10 +18,13 @@ class DomUtil {
 
   /** selectの選択中のoptionを返す */
   static getSelectedOption( selectEl ) {
-    if( selectEl.selectedIndex < 0 ) {
-      return null;
-    }
-    return selectEl.options[selectEl.selectedIndex];
+    return selectEl.selectedOptions[0];
+  }
+
+  /** selectを値で選択する */
+  static selectOptionByValue( selectEl, value ) {
+    let idx = [...selectEl.options].findIndex( (option) => option.value === value );
+    selectEl.selectedIndex = idx;
   }
 
   /** selectのoptionを入れ直す */
