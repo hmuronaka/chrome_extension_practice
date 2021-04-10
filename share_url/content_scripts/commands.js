@@ -21,7 +21,7 @@ class GetRoomNameCommand {
 class GetRoomNamesCommand {
   /**
    * msg: {
-   *  type: 'get-rooms-name'
+   *  type: 'get-room-names'
    * }
    */ 
   run(msg) {

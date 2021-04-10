@@ -26,10 +26,10 @@ class Popup {
     this.#roomsSelect = doc.getElementById('rooms-select');
 
     // 表示中のページの情報を取得する
-    this.#getRoomsButton.addEventListener('click', () => this.getRoomsName() );
+    this.#getRoomsButton.addEventListener('click', () => this.getRoomNames() );
     this.#setTextFromActiveTab();
     doc.getElementById('send-text-button').addEventListener('click', () => this.sendTextToRoom());
-    this.getRoomsName();
+    this.getRoomNames();
   }
 
   get selectedRoom() {
@@ -53,8 +53,8 @@ class Popup {
   }
 
   /** ルーム一覧を取得してselectを更新する */
-  async getRoomsName() {
-    let res = await this.#sendMessageToChatwork({ type: 'get-rooms-name' });
+  async getRoomNames() {
+    let res = await this.#sendMessageToChatwork({ type: 'get-room-names' });
     this.#refreshRoomSelect( res.rooms );
   }
 
