@@ -56,7 +56,7 @@ class SelectRoomCommand {
 class ChatSendCommand {
   /**
    *  msg: {
-   *    type: 'share-web-page',
+   *    type: 'send-text-to-room',
    *    text: 送信本文
    *  };
    */

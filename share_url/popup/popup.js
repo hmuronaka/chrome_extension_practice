@@ -32,7 +32,7 @@ class Popup {
       let text = this.#textFromTab(tab);
       this.#setText(text);
     });
-    doc.getElementById('share-button').addEventListener('click', () => this.shareWebPage());
+    doc.getElementById('share-button').addEventListener('click', () => this.sendTextToRoom());
     this.getRoomsName();
   }
 
@@ -44,14 +44,14 @@ class Popup {
   }
 
   /** 表示中のURLとタイトルをRoomに投稿する */
-  async shareWebPage() {
+  async sendTextToRoom() {
     if( !this.selectedRoom ) {
       return;
     }
     let message = {
-      type: 'share-web-page',
-      text: this.#text.innerText,
-      roomUrl: this.selectedRoom.value
+      type: 'send-text-to-room',
+      roomUrl: this.selectedRoom.value,
+      text: this.#text.innerText
     };
     this.#sendMessageToChatwork(message);
   }

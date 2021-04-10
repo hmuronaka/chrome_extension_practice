@@ -7,7 +7,7 @@
 class ShareWebPageCommand {
   /**
    * msg: {
-      type: 'share-web-page',
+      type: 'send-text-to-room',
       roomUrl: 投稿先ルームのurl,
       text: 送信する本文
     }
@@ -19,7 +19,7 @@ class ShareWebPageCommand {
     });
     // TODO sleepは削除する。
     await sleepMilliseconds(1000);
-    // chatworkにmsg share-web-pageをそのまま送信する。
+    // chatworkにmsg send-text-to-roomをそのまま送信する。
     await ChromeExtension.shared.sendMessageToChatworkTab(msg);
   }
 }
