@@ -57,15 +57,12 @@ class ChatSendCommand {
   /**
    *  msg: {
    *    type: 'share-web-page',
-   *    url: メッセージに貼り付けるurl
-   *    title: メッセージに貼り付けるtitle
+   *    text: 送信本文
    *  };
    */
   run(msg) {
     let chatSendArea = new ChatSendArea(document.getElementById('_chatSendArea'));
-    var text = chatSendArea.text;
-    text += msg.title + '\n' + msg.url;
-    chatSendArea.text = text;
+    chatSendArea.text += msg.text;
     chatSendArea.send();
   }
 }

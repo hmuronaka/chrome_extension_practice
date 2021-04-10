@@ -8,9 +8,8 @@ class ShareWebPageCommand {
   /**
    * msg: {
       type: 'share-web-page',
-      url: メッセージ中のurl
-      title: メッセージ中のtitle
-      roomUrl: 投稿先ルームのurl
+      roomUrl: 投稿先ルームのurl,
+      text: 送信する本文
     }
    */ 
   async run(msg) {

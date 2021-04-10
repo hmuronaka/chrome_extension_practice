@@ -6,10 +6,8 @@ class Popup {
   ////////////////////////////////////////////////////////////////////////////////
   // attributes
 
-  /** 表示中のURI表示 */
-  #uriDiv;
-  /** 表示中pageのタイトル */
-  #titleDiv;
+  /** 表示中のtext */
+  #text;
   /** ルーム一覧更新ボタン */
   #getRoomsButton;
   /** ルーム一覧 */
@@ -23,8 +21,7 @@ class Popup {
 
   /** このオブジェクトをdocumentに割り当てる */
   attach(doc) {
-    this.#uriDiv = doc.getElementById('tab-uri');
-    this.#titleDiv = doc.getElementById('tab-title');
+    this.#text = doc.getElementById('text');
     this.#getRoomsButton = doc.getElementById('get-rooms-button');
     this.#roomsSelect = doc.getElementById('rooms-select');
 
@@ -32,11 +29,10 @@ class Popup {
     this.#getRoomsButton.addEventListener('click', () => this.getRoomsName() );
     chrome.tabs.query({ active: true, currentWindow: true }, (...args) => {
       const [tab] = Array.from(args[0]);
-      this.#titleDiv.innerText = tab.title;
-      this.#uriDiv.innerText = tab.url;
+      let text = this.#textFromTab(tab);
+      this.#setText(text);
     });
     doc.getElementById('share-button').addEventListener('click', () => this.shareWebPage());
-
     this.getRoomsName();
   }
 
@@ -54,8 +50,7 @@ class Popup {
     }
     let message = {
       type: 'share-web-page',
-      url: this.#uriDiv.innerText,
-      title: this.#titleDiv.innerText,
+      text: this.#text.innerText,
       roomUrl: this.selectedRoom.value
     };
     this.#sendMessageToChatwork(message);
@@ -77,6 +72,14 @@ class Popup {
   #refreshRoomSelect(rooms) {
     let options = rooms.map( r => { return { value: r.url, text: r.name }; } );
     DomUtil.reloadSelct( this.#roomsSelect, options  );
+  }
+
+  #textFromTab(tab) {
+    return `${tab.title}\n${tab.url}`;
+  }
+
+  #setText(text) {
+    this.#text.innerText = text;
   }
 }
 
