@@ -24,6 +24,12 @@ class DomUtil {
     return selectEl.options[selectEl.selectedIndex];
   }
 
+  /** selectを値で選択する */
+  static selectOptionByValue( selectEl, value ) {
+    let idx = [...selectEl.options].findIndex( (option) => option.value === value );
+    selectEl.selectedIndex = idx;
+  }
+
   /** selectのoptionを入れ直す */
   static reloadSelct(selectEl, options) {
     DomUtil.removeAllOptionsFromSelect(selectEl);
