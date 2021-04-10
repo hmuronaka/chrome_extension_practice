@@ -27,11 +27,7 @@ class Popup {
 
     // 表示中のページの情報を取得する
     this.#getRoomsButton.addEventListener('click', () => this.getRoomsName() );
-    chrome.tabs.query({ active: true, currentWindow: true }, (...args) => {
-      const [tab] = Array.from(args[0]);
-      let text = this.#textFromTab(tab);
-      this.#setText(text);
-    });
+    this.#setTextFromActiveTab();
     doc.getElementById('share-button').addEventListener('click', () => this.sendTextToRoom());
     this.getRoomsName();
   }
@@ -67,6 +63,14 @@ class Popup {
 
   async #sendMessageToChatwork(message) {
     return await ChromeExtension.shared.sendMessage(message);
+  }
+
+  #setTextFromActiveTab() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (...args) => {
+      const [tab] = Array.from(args[0]);
+      let text = this.#textFromTab(tab);
+      this.#setText(text);
+    });
   }
 
   #refreshRoomSelect(rooms) {
