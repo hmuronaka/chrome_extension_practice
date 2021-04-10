@@ -47,7 +47,7 @@ class Popup {
     let message = {
       type: 'send-text-to-room',
       roomUrl: this.selectedRoom.value,
-      text: this.#text.innerText
+      text: this.#text.value
     };
     this.#sendMessageToChatwork(message);
   }
@@ -83,7 +83,7 @@ class Popup {
   }
 
   #setText(text) {
-    this.#text.innerText = text;
+    this.#text.value = text;
   }
 }
 
