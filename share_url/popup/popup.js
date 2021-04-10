@@ -52,20 +52,16 @@ class Popup {
     if( !this.selectedRoom ) {
       return;
     }
-    let roomUrl = this.selectedRoom.value;
     let payload = {
       type: 'share-web-page',
       url: this.#uriDiv.innerText,
       title: this.#titleDiv.innerText,
-      roomUrl: roomUrl
+      roomUrl: this.selectedRoom.value
     };
-
-    let tab = await this.#findChatworkTab();
-    if( tab ) {
-      ChromeExtension.shared.sendMessageToTab(tab, payload);
-    }
+    this.#sendMessageToChatwork(payload);
   }
 
+  /** ルーム一覧を取得してselectを更新する */
   async getRoomsName() {
     let res = await this.#sendMessageToChatwork({ type: 'get-rooms-name' });
     this.#refreshRoomSelect( res.rooms );
@@ -74,13 +70,8 @@ class Popup {
   ////////////////////////////////////////////////////////////////////////////////
   // private methods
 
-  async #findChatworkTab() {
-    return await ChromeExtension.shared.findTab('https://www.chatwork.com/');
-  }
-
   async #sendMessageToChatwork(payload) {
-    let tab = await this.#findChatworkTab();
-    return await ChromeExtension.shared.sendMessageToTab(tab, payload);
+    return await ChromeExtension.shared.sendMessage(payload);
   }
 
   #refreshRoomSelect(rooms) {

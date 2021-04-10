@@ -7,15 +7,26 @@
   "content_scripts": [{
     "matches": ["*://*.chatwork.com/*"],
     "js": [
+      "lib/js_util.js",
       "lib/dom_util.js", 
       "lib/chatwork_dom.js", 
+      "lib/message_receiver.js", 
       "content_scripts/commands.js", 
-      "content_scripts/message_receiver.js",
       "content_scripts/main.js"
     ],
     "run_at": "document_end"
   }],
   "browser_action": {
     "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "lib/js_util.js",
+      "lib/chrome_util.js",
+      "lib/message_receiver.js", 
+      "background/commands.js",
+      "background/main.js"
+    ],
+    "persistent": false
   }
 }

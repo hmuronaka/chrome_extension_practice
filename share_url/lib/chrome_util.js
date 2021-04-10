@@ -23,7 +23,9 @@ class ChromeExtension {
    */ 
   async findTab(url) {
     return new Promise((resolve, reject) => {
-      chrome.tabs.query({ currentWindow: true, url: url }, function(...args) {
+      // NOTE currentWindow: trueがあるとbackgroundで期待した動作をしない
+      //      ことがあるため、いったん除外。
+      chrome.tabs.query({ url: url }, function(...args) {
         const [tab] = Array.from(args[0]);
         if( tab && tab.url ) {
           resolve(tab);
@@ -45,12 +47,30 @@ class ChromeExtension {
       }
       let payloadWithTab = {tabId: tab.id, ...payload};
       chrome.tabs.sendMessage(tab.id, payloadWithTab, (res) => {
-        debugger;
         resolve(res);
       });
     });
   }
 
+  async findChatworkTab() {
+    return await this.findTab('https://www.chatwork.com/');
+  }
+
+  async sendMessageToChatworkTab(payload) {
+    let tab = await this.findChatworkTab();
+    if( !tab ) {
+      throw "chatwork's tab was not found.";
+    }
+    return await this.sendMessageToTab(tab, payload);
+  }
+
+  async sendMessage(payload) {
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage(payload, (res) => {
+        resolve(res);
+      });
+    });
+  }
 }
 
 
