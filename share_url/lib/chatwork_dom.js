@@ -1,4 +1,58 @@
 // ChatworkのページのDOM要素を表現
+//
+/**
+ * メンバー一人分の情報(Row)
+ */ 
+class MemberDetailRow {
+  constructor(el) {
+    this.el = el;
+  }
+
+  // ユーザー名
+  get name() {
+    return this.el.querySelector('.roomMemberTable__nameText').innerText.trim();
+  }
+
+  // ユーザーID
+  get id() {
+    return this.el.querySelector('.roomMemberTable__avatar img._avatar').getAttribute('data-aid');
+  }
+
+  get asObject() {
+    return {
+      id: this.id,
+      name: this.name
+    };
+  }
+}
+
+/**
+ * メンバーテーブルの情報
+ * メンバーテーブルの情報は、メンバー一覧画面が表示されるまで、numberOfMembers === 0となるので
+ * 注意。
+ *
+ * またルームのメンバーを取得し後、別のルームを表示した場合、そのルームのメンバー一覧を表示するまで
+ * 以前表示したルームのメンバーが保持されるのでこの点も注意
+ */ 
+class MemberDetailTable {
+  constructor(el) {
+    this.el = el;
+  }
+
+  get members() {
+    return [...this.rows].map( (row) => {
+      return (new MemberDetailRow(row)).asObject;
+    });
+  }
+
+  get rows() {
+    return this.el.rows;
+  }
+
+  get numberOfMembers() {
+    return this.rows.length;
+  }
+}
 
 /**
  * 1ルームの要素
