@@ -21,6 +21,13 @@ class Popup {
 
   /** このオブジェクトをdocumentに割り当てる */
   async attach(doc) {
+    let chatworkTab = await ChromeExtension.shared.findChatworkTab();
+    if( !chatworkTab ) {
+      let messageArea = doc.getElementById('message-area');
+      messageArea.classList.remove('hidden');
+      return;
+    }
+    doc.getElementById('main-area').classList.remove('hidden');
     this.#textarea = doc.getElementById('text');
     this.#getRoomsButton = doc.getElementById('get-rooms-button');
     this.#roomsSelect = doc.getElementById('rooms-select');
