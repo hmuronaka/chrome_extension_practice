@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
+    <meta charset="utf-8"/>
     <style>
       body {
+        min-width: 300px;
         height: 200px;
+        margin: 8px;
       }
       button {
         height: 30px;
@@ -25,13 +28,21 @@
       #get-rooms-button {
         width: 100px;
       }
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <select id="rooms-select" ></select>
-    <button id="send-text-button">SEND</button>
-    <button id="get-rooms-button">GET ROOMS</button>
-    <textarea id="text" rows="5" cols="80"></textarea>
+    <div id="message-area" class="hidden">
+      <span>Chatworkのタブが見つかりませんでした。<br/>Chatworkのページを表示してから、このポップアップを再表示してください。</span>
+    </div>
+    <div id="main-area" class="hidden">
+      <select id="rooms-select" ></select>
+      <button id="send-text-button">SEND</button>
+      <button id="get-rooms-button">GET ROOMS</button>
+      <textarea id="text" rows="5" cols="80"></textarea>
+    </div>
     <script src="../lib/dom_util.js"></script>
     <script src="../lib/chrome_util.js"></script>
     <script src="popup.js"></script>
