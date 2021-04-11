@@ -1,4 +1,43 @@
 /**
+ * 現在のRoomのメンバーを取得する
+ */ 
+class GetRoomMembersCommand {
+  async run(msg) {
+    let memberDetailTable = new MemberDetailTable(document.getElementById('_memberDetailMember'));
+    if( !memberDetailTable ) {
+      return;
+    }
+    await this.#loadMembers()
+    return memberDetailTable.members;
+  }
+
+  /**
+   * ルームメンバーを取得する。
+   *
+   * ルームメンバーはメンバー一覧の画面を表示しないと取得されないようなので、
+   * 画面を表示して閉じる処理を行なって取得する。
+   */ 
+  async #loadMembers() {
+    // ルーム一覧を表示するまで、前回表示したルームの内容が残っているようなので、毎回取得するメンバー詳細を開く
+    // TODO classとして定義するか、utilityメソッドとして定義する
+    let showMemerDescription = document.querySelector('#roomMemberArea ._showDescription');
+    if( !showMemerDescription ) {
+      // NOTE マイチャットなどはメンバー一覧を開く表示がない。
+      return;
+    }
+    // メンバー一覧を開く
+    showMemerDescription.click();
+    // TODO メンバー一覧が取得されるまで待機する
+    await sleepMilliseconds(100);
+    let closeButton = document.querySelector('._cwDGBase.dialogBase ._cwDGButtonCancel');
+    if( closeButton ) {
+      // メンバー一覧を閉じる
+      closeButton.click();
+    }
+  }
+}
+
+/**
  * chatworkのurlからRoom名を取得するコマンド
  */ 
 class GetRoomNameCommand {
