@@ -46,21 +46,29 @@ class Popup {
 
   /** テキストを選択されているRoomに投稿する */
   async sendTextToRoom() {
-    if( !this.#selectedRoom ) {
-      return;
+    try {
+      if( !this.#selectedRoom ) {
+         return;
+      }
+      let message = {
+        type: 'send-text-to-room',
+        roomUrl: this.#selectedRoom.value,
+        text: this.#textarea.value.trim()
+      };
+      await this.#sendMessageToChatwork(message);
+    } catch(error) {
+      console.log(error);
     }
-    let message = {
-      type: 'send-text-to-room',
-      roomUrl: this.#selectedRoom.value,
-      text: this.#textarea.value.trim()
-    };
-    this.#sendMessageToChatwork(message);
   }
 
   /** ルーム一覧を取得してselectを更新する */
   async getRoomNames() {
-    let res = await this.#sendMessageToChatwork({ type: 'get-room-names' });
-    this.#refreshRoomSelect( res.rooms );
+    try {
+      let res = await this.#sendMessageToChatwork({ type: 'get-room-names' });
+      this.#refreshRoomSelect( res.rooms );
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
