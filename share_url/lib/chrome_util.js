@@ -47,7 +47,16 @@ class ChromeExtension {
       }
       let messageWithTab = {tabId: tab.id, ...message};
       chrome.tabs.sendMessage(tab.id, messageWithTab, (res) => {
-        resolve(res);
+        if( res && res.className === MessageReceiverResult.name ) {
+          res = new MessageReceiverResult(res);
+          if( res.isSuccess ) {
+            resolve(res.value);
+          } else {
+            reject(res.error);
+          }
+        } else {
+          resolve(res);
+        }
       });
     });
   }
@@ -67,7 +76,16 @@ class ChromeExtension {
   async sendMessage(message) {
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage(message, (res) => {
-        resolve(res);
+        if( res && res.className === MessageReceiverResult.name ) {
+          res = new MessageReceiverResult(res);
+          if( res.isSuccess ) {
+            resolve(res.value);
+          } else {
+            reject(res.error);
+          }
+        } else {
+          resolve(res);
+        }
       });
     });
   }
