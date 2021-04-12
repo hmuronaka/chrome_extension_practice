@@ -5,25 +5,25 @@
 
 # インストール
 
-# 使い方
+作成中
 
 ## 前準備
 1. このextensionをインストールして、このextensionのアイコンをピン留めさせる
-2. chatworkのページを開く（このextensionを利用するためには、開いておく必要がある)
 
-## 開いているページの共有
+# 使い方
 
-1. chatworkで共有したいtabを表示している状態で、このextensionのアイコンをクリックする
-2. 投稿先のルームを選択して、必要なら本文を編集してSHAREボタンをクリックする
-  （現状では)chatworkのページのルームが変わり、テキスト欄に2で投稿した内容が貼り付けられる
-3. （現状では)ユーザーがchatworkのタブを開いて、テキストを投稿する
+1. Chatworkのページを開く（このextensionを利用するためには、開いておく必要がある)
+2. Chatworkで共有したいtabを表示している状態で、このextensionのアイコンをクリックする
+3. 投稿先のルームを選択して、必要なら本文を編集してSHAREボタンをクリックする
+  （現状では)Chatworkのページのルームが変わり、テキスト欄に2で投稿した内容が貼り付けられる
+4.（現状では)ユーザーがChatworkのタブを開いて、テキストを投稿する
 
 # ディレクトリ構成
 
 |Directory|説明|
 |:--------|:---|
 |background|ページに関わらず常駐するjs|
-|content_scripts|chatworkのページを開く際に読み込むjs|
+|content_scripts|Chatworkのページを開く際に読み込むjs|
 |lib|ライブラリ|
 |popup|Chromeのtoolbar上で表示するpopupのhtmlとjs|
 
@@ -33,7 +33,7 @@
 
 ## メッセージ通信の方針
 
-popupは必ずbackgroundを介してcontent_script(chatworkのページ)にアクセスする。
+popupは必ずbackgroundを介してcontent_script(Chatworkのページ)にアクセスする。
 
 popup.jsは、popupが表示されている時点でしか存在しないようなので、tabを変更するなどする際には、
 background.jsで処理を行う必要がある。message passingの流れを簡易にするためにpopup <-> content_script間の
@@ -49,7 +49,7 @@ actor user as user
 participant popup as popup
 participant background_js as background
 participant content_script_js as content_script
-participant chatworkのDOM as chatworkDOM
+participant ChatworkのDOM as chatworkDOM
 
 user ->> popup: ルーム一覧を取得する
 popup -> background: ルーム一覧を取得する
@@ -69,7 +69,7 @@ actor user as user
 participant popup as popup
 participant background_js as background
 participant content_script_js as content_script
-participant chatworkのDOM as chatworkDOM
+participant ChatworkのDOM as chatworkDOM
 
 user ->> popup: 本文を投稿する
 popup -> background: 本文を投稿する
