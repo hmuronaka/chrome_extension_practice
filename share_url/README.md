@@ -1,7 +1,6 @@
 # Share URL for Chatwork
 
-表示しているページのTitleとURLを簡単にChatworkで共有できるだけのextension。
-という内容のextension習作。
+表示しているページのTitleとURLを簡単にChatworkで共有できるだけのextension。というextensionの習作。
 
 # インストール
 
