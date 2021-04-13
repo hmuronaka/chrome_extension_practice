@@ -47,7 +47,21 @@ class ChromeExtension {
       }
       let messageWithTab = {tabId: tab.id, ...message};
       chrome.tabs.sendMessage(tab.id, messageWithTab, (res) => {
-        resolve(res);
+        // resはMessageReceiverResultのJSON表現 | any を想定している。
+        // chrome extensionのMessage Passingは、JSONオブジェクトしか渡せなず
+        // 直接MessageReceiverResultのインスタンスを渡せないため、JSONから
+        // MessageReceiverResultインスタンスへの復元を行う。
+        // https://developer.chrome.com/docs/extensions/mv3/messaging/
+        if( res && res.className === MessageReceiverResult.name ) {
+          res = new MessageReceiverResult(res);
+          if( res.isSuccess ) {
+            resolve(res.value);
+          } else {
+            reject(res.error);
+          }
+        } else {
+          resolve(res);
+        }
       });
     });
   }
@@ -64,10 +78,27 @@ class ChromeExtension {
     return await this.sendMessageToTab(tab, message);
   }
 
+  /**
+   * backgroundにメッセージ通信を行う
+   */ 
   async sendMessage(message) {
     return new Promise((resolve, reject) => {
+      // resはMessageReceiverResultのJSON表現 | any を想定している。
+      // chrome extensionのMessage Passingは、JSONオブジェクトしか渡せなず
+      // 直接MessageReceiverResultのインスタンスを渡せないため、JSONから
+      // MessageReceiverResultインスタンスへの復元を行う。
+      // https://developer.chrome.com/docs/extensions/mv3/messaging/
       chrome.runtime.sendMessage(message, (res) => {
-        resolve(res);
+        if( res && res.className === MessageReceiverResult.name ) {
+          res = new MessageReceiverResult(res);
+          if( res.isSuccess ) {
+            resolve(res.value);
+          } else {
+            reject(res.error);
+          }
+        } else {
+          resolve(res);
+        }
       });
     });
   }

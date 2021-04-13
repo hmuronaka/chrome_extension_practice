@@ -131,4 +131,15 @@ package content_scripts {
 
 @enduml
 
+# メモ
+
+## Chrome Extension
+- content_script, background,(おそらくpopupも)それぞれJavaScriptの実行環境が異なる。[Message passing](https://developer.chrome.com/docs/extensions/mv3/messaging/)
+- Message Passingで授受できるデータは、any valid JSON object (null, boolean, number, string, array, or object). [Message passing](https://developer.chrome.com/docs/extensions/mv3/messaging/)
+- ManifestV3にすると、一部のChrome Extension APIがPromise化される。[Using Promise](https://developer.chrome.com/docs/extensions/mv3/promises/)
+- popupのJavaScriptは、popup画面が消えるとリソースが廃棄される（と思われる）ので、popupが消えてからも処理を継続する場合はbackgroundを利用する必要がある。(動作ベースの確認)
+
+
+## JS
+- ErrorオブジェクトはtoJSON()ない
 
