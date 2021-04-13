@@ -30,6 +30,16 @@ class MessageReceiver {
     });
   }
 
+  /**
+   * 受信したメッセージからCommandのインスタンスを生成して実行する。
+   * Commandの実行結果をMessageReceiveResultのインスタンスに格納してsendResponseに渡す。
+   * (MessageReceiverResultを介するのは処理の成功/失敗をメッセージの送信元に渡せるようにするため）
+   *
+   * @param msg 送信されたメッセージ
+   * @param sender 送信者
+   * @param sendResponse 送信元に結果を返すためのcallback関数
+   * @return 非同期処理を行う場合trueを返す。同期処理の場合falseを返す
+   */ 
   #receivedMessage(msg, sender, sendResponse) {
     let commandClass = this.#commandMap[msg.type] || this.#commandMap["*"];
     if( !commandClass ) {
@@ -65,11 +75,24 @@ class MessageReceiver {
   }
 }
 
+/**
+ * MessageReceiverの処理結果を表す
+ */ 
 class MessageReceiverResult {
   #isSuccess = false;
+  /** #isSucess == trueの時、結果を保持する. #isSucess == falseの時は未定義 */
   #value;
+  /**
+   * #isSucess == falseの時、errorを表す値を保持する. #isSucess == trueの時は未定義.
+   * ただしErrorのインスタンスは、content_script / background / popupを跨げないので、
+   * Objectとして表現する
+   */
   #error;
 
+  /**
+   * インスタンスを生成する
+   * objはErrorオブジェクトのインスタンスを想定
+   */ 
   constructor(obj) {
     this.#isSuccess = !!obj.isSuccess;
     this.#value = obj.value;
@@ -90,6 +113,7 @@ class MessageReceiverResult {
 
   toJSON() {
     return {
+      // JSONから復元するための情報として、classNameを保持する
       className: MessageReceiverResult.name,
       isSuccess: this.#isSuccess,
       value: this.#value,

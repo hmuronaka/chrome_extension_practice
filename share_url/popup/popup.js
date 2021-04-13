@@ -88,6 +88,9 @@ class Popup {
     return DomUtil.getSelectedOption( this.#roomsSelect );
   }
 
+  /**
+   * backgroundを介してchatworkへメッセージを送信する
+   */ 
   async #sendMessageToChatwork(message) {
     return await ChromeExtension.shared.sendMessage(message);
   }
