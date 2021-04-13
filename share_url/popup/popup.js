@@ -58,6 +58,7 @@ class Popup {
       await this.#sendMessageToChatwork(message);
     } catch(error) {
       console.log(error);
+      throw error;
     }
   }
 
@@ -68,6 +69,7 @@ class Popup {
       this.#refreshRoomSelect( res.rooms );
     } catch(error) {
       console.log(error);
+      throw error;
     }
   }
 
