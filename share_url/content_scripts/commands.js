@@ -47,10 +47,7 @@ class GetRoomNameCommand {
     if( !room ) {
       throw "room is not found. url: " + msg.url + ", roomId: " + room.id;
     }
-    return {
-      roomId: room.id,
-      roomName: room.name
-    }
+    return room;
   }
 }
 
@@ -65,9 +62,8 @@ class GetRoomNamesCommand {
    */ 
   run(msg) {
     let roomList = new RoomList(document.getElementById('_roomListArea'));
-    let rooms = roomList.rooms().map ( r => r.asObject );
-    return {
-      rooms: rooms
+    return { 
+      rooms: roomList
     };
   }
 }

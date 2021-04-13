@@ -74,7 +74,7 @@ class Room {
     return `https://chatwork.com/#!rid${this.id}`;
   }
 
-  get asObject() {
+  toJSON() {
     return {
       id: this.id,
       url: this.url,
@@ -123,9 +123,13 @@ class RoomList {
   /**
    * Roomオブジェクトの一覧を返す
    */ 
-  rooms() {
+  get rooms() {
     let rooms = [...this.el.querySelectorAll('li[role="listitem"]')];
     return rooms.map( r => new Room(r) );
+  }
+
+  toJSON() {
+    return this.rooms;
   }
 }
 
