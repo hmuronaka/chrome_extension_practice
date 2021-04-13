@@ -18,7 +18,7 @@ class MemberDetailRow {
     return this.el.querySelector('.roomMemberTable__avatar img._avatar').getAttribute('data-aid');
   }
 
-  get asObject() {
+  toJSON() {
     return {
       id: this.id,
       name: this.name
@@ -40,9 +40,7 @@ class MemberDetailTable {
   }
 
   get members() {
-    return [...this.rows].map( (row) => {
-      return (new MemberDetailRow(row)).asObject;
-    });
+    return [...this.rows].map( (row) => new MemberDetailRow(row));
   }
 
   get rows() {
